@@ -1,0 +1,137 @@
+swagger: '2.0'
+info:
+  description: this is a documentation on integration of all api's 
+  version: 1.0.0
+  title: myob with poc
+  contact:
+    email: raghuramreddy.nagireddy@anugrehaa.com
+  license:
+    name: Apache 2.0
+host: '127.0.0.1:3000'
+basePath: /
+tags:
+  - name: contacts
+    description: it is used to get contacts from myob
+    externalDocs:
+      description: Find out more
+      url: 'http://swagger.io''/contacts/new'
+       
+  - name: contact details
+    description: Get details by id
+  - name: update
+    description: update the contact details
+    externalDocs:
+      description: Find out more about our store
+      url: 'http://swagger.io'
+schemes:
+  - http
+  - https
+paths:
+  '/':
+    get:
+      summary: Shows the list of all compaines 
+      description: all the list is in the format of json 
+      produces:
+        - application/xml
+        - application/json
+      responses:
+        '200':
+          description: successful operation
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: data not found
+  
+  '/contacts':
+    get:
+      summary: used to get all contact details 
+      description: returns all values
+      produces:
+        - application/xml
+        - application/json
+      responses:
+        '200':
+          description: successful operation
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: data not found
+          
+  '/contacts/{id}': 
+    get:
+      summary: used to get all contact details of required company
+      description: returns all values
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - name: "id"
+          in: "path"
+          description: "ID of company to return"
+          required: true
+          type: "string"
+      responses:
+        '200':
+          description: successful operation
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: data not found
+    delete:
+      summary: used to delete any contact 
+      description: given name of the contact will be deleted 
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - name: "id"
+          in: "path"
+          description: "name of the contact"
+          required: true
+          type: "string"
+      responses:
+        '200':
+          description: successful operation
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: data not found      
+  
+  '/contacts/new':
+     post:
+      summary: "Add a new contact"
+      description: ""
+      operationId: "Add contact"
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/xml"
+      - "application/json"
+      - "text/html"
+      - "text/plain"
+      parameters:
+            - in: "body"
+              name: "body"
+              description: " used to create new company details "
+              required: true
+              schema:
+                $ref: "#/definitions/new"
+      responses:
+        201:
+          description: "succesfully inserted"
+definitions:
+  new:
+    type: "object"
+    properties:
+      TaxCodeId:
+        type: "string"
+        default: "GST"
+      FreightTaxCodeId:
+        type: "string"
+        default: "GST"
+      CoLastName:
+        type: "string"
+        default: "M-N Stationery Supplies"
+      EnteredId:
+        type: "string"
